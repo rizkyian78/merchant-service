@@ -1,4 +1,4 @@
-package com.ipg.merchantservice.model.login;
+package com.ipg.merchantservice.model;
 
 public class LoginRequest {
     public String email;

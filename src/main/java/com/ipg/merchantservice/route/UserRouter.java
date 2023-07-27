@@ -1,8 +1,11 @@
 package com.ipg.merchantservice.route;
 
-import com.ipg.merchantservice.entity.User;
-import com.ipg.merchantservice.model.login.*;
+import com.ipg.merchantservice.model.ApiResponse;
+import com.ipg.merchantservice.model.LoginRequest;
+import com.ipg.merchantservice.model.LoginResponse;
 import com.ipg.merchantservice.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +18,10 @@ public class UserRouter {
     @Autowired
     public UserService userService;
 
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String Login(@RequestBody LoginRequest body) {
-        userService.Login(1);
-
-        return "okeee";
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ApiResponse<LoginResponse> Login(@RequestBody LoginRequest body) {
+        Logger logger = LoggerFactory.getLogger("/Login");
+        LoginResponse data = userService.Login(body, logger);
+        return ApiResponse.<LoginResponse>builder().data(data).build();
     }
 }

@@ -10,4 +10,7 @@ public class MerchantServiceApplication {
 		SpringApplication.run(MerchantServiceApplication.class, args);
 	}
 
+
+
+
 }

@@ -1,6 +1,8 @@
 package com.ipg.merchantservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,14 +18,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @NotBlank
     private String name;
+    @NotBlank
     private String username;
+    @Email
+    @NotBlank
     private  String email;
+    @NotBlank
+    private String password;
     private String partnerId;
+    @NotBlank
     private String roles;
+    @NotBlank
     private String realm;
     private String merchantId;
+    @NotBlank
     private String status;
+    @NotBlank
     private String photoUrl;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -31,6 +44,14 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public String getName() {
         return name;
