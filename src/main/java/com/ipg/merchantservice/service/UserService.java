@@ -6,12 +6,9 @@ import com.ipg.merchantservice.entity.User;
 import com.ipg.merchantservice.model.LoginRequest;
 import com.ipg.merchantservice.model.LoginResponse;
 import com.ipg.merchantservice.repository.UserRepository;
-import lombok.extern.java.Log;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +23,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public LoginResponse Login(LoginRequest body, Logger logger) {
 
 
