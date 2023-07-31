@@ -5,7 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.ipg.merchantservice.entity.User;
 import com.ipg.merchantservice.model.LoginRequest;
 import com.ipg.merchantservice.model.LoginResponse;
+import com.ipg.merchantservice.model.UserResponse;
 import com.ipg.merchantservice.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
 
@@ -55,5 +58,22 @@ public class UserService {
             .email(user.getEmail())
             .realm(user.getRealm())
             .token(token).build();
+    }
+
+    public UserResponse Me(String id) {
+
+        User user = userRepository.findById(id).get();
+        return UserResponse.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .partnerId(user.getPartnerId())
+                .merchantId(user.getMerchantId())
+                .name(user.getName())
+                .realm(user.getRealm())
+                .status(user.getStatus())
+                .email(user.getEmail())
+                .photoUrl(user.getPhotoUrl())
+                .createdAt(user.getCreatedAt().toString())
+                .updatedAt(user.getUpdatedAt().toString()).build();
     }
 }
